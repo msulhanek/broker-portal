@@ -1,1 +1,432 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  --main: #0095DA ;
+  --darkblue: #003974;
+  --grey-color: #3e3d3d;
+  --info-paragraph: #7f7e7e;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+}
+
+ol, ul {
+  padding: 0 !important;
+}
+dl, ol, ul {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+body {
+  background: #fff;
+  font-family: 'Montserrat', serif;
+  color-scheme: dark;
+}
+
+#hero{
+  background: linear-gradient(rgba(0,0,0, 0.3),rgba(0,0,0,0.7)), url('https://source.unsplash.com/koH7IVuwRLw/1920x1000');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 90vh;
+  width: 100%;
+}
+
+#detail-hero{
+  background: linear-gradient(rgba(0,0,0, 0.3),rgba(0,0,0,0.7)), url('https://source.unsplash.com/koH7IVuwRLw/1920x1000');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 8vh;
+  width: 100%;
+}
+
+
+#hero .masthead{
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+}
+
+#hero .masthead h1{
+  font-size: 3rem;
+
+}
+
+#hero .masthead h1 span{
+  font-weight: bold;
+}
+
+#hero .masthead .search-form{
+  background: white;
+  color: black;
+  padding: 40px;
+  border-radius: 5px ;
+  width: 80%;
+}
+
+#hero .masthead .search-form h3{
+  font-weight: bold;
+}
+
+#hero .masthead .search-form label,
+.box label{
+  color: var(--grey-color);
+  font-weight: bold;
+  font-size: 15px;
+}
+
+
+#navbar{
+  transition:all 0.8s ease;
+  background: transparent;
+}
+
+#navbar.sticky {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background: white;
+  box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);
+}
+
+#navbar.sticky .navbar-brand{
+  color: #000;
+}
+
+#navbar.sticky ul > li a {
+  color: darkgray;
+}
+
+#navbar .navbar-brand{
+  padding-left: 2rem;
+  color: white;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: 0.6s;
+}
+
+#navbar ul {
+  padding-right: 2rem;
+}
+
+#navbar .nav-item .nav-link{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.8s ease;
+}
+
+#navbar ul > li a {
+  color: white;
+}
+
+#navbar ul > li a:hover,
+#navbar ul > li a.active{
+  color: var(--darkblue);
+}
+
+.navbar-toggler,
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+#navbar button.navbar-toggler {
+  cursor: pointer;
+  padding: 0.15em 0.35em;
+}
+
+
+#navbar .hamburger {
+  margin-right: 1.2em;
+}
+
+#navbar .navbar-toggler-inner,
+#navbar .navbar-toggler-inner::before,
+#navbar .navbar-toggler-inner::after{
+  transition: 0.3s;
+  background-color: black;
+  width: 1em;
+  height: 0.16em;
+  position: absolute;
+}
+
+
+#navbar .navbar-toggler-inner::before{
+  content: "";
+  display: block;
+  top: -0.3em;
+}
+
+#navbar .navbar-toggler-inner::after{
+  content: "";
+  display: block;
+  bottom: -0.3em;
+}
+
+
+#navbar .navbar-toggler-inner.active{
+  transition: 0.3s;
+  transform: rotate(45deg);
+}
+
+#navbar .navbar-toggler-inner.active::before{
+  top:0;
+  opacity: 0;
+}
+
+#navbar .navbar-toggler-inner.active::after{
+  bottom: 0;
+  transform: rotate(-90deg);
+}
+
+#navbar .dropdown ul{
+  border-radius: 0;
+  padding-right: 0;
+}
+
+@media only screen and (max-width: 720px){
+  #navbar .nav-item .nav-link{
+    padding-left: 2rem;
+  }
+}
+
+#navbar .dropdown ul li a {
+  padding: 8px;
+  color: var(--grey-color);
+}
+
+#navbar .dropdown ul li a:hover {
+  background-color: var(--darkblue);
+  color: white;
+}
+
+
+i:before{
+  margin-left: 5px;
+}
+
+.more {
+  color: var(--main);
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  margin-top: 10vh;
+  margin-bottom: 5vh;
+}
+
+.inzeraty .heading h1{
+  color: var(--grey-color);
+  font-weight: bold;
+  padding-top: 8vh;
+  padding-bottom: 4vh;
+}
+
+footer{
+  color: white;
+  background: var(--darkblue);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer p{
+  font-size: 13px;
+}
+
+
+
+button.slick-next .slick-arrow,
+button.slick-prev .slick-arrow{
+  display: none !important;
+}
+
+.slick-slide:focus {
+  border: none;
+  outline: none;
+}
+
+.slick-dots {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 15px;
+  padding: 1rem 0;
+
+  list-style-type: none;
+}
+
+.slick-dots li {
+  margin: 0 0.25rem;
+}
+
+.slick-dots button {
+  display: block;
+  width: 0.75rem;
+  height: 0.75rem;
+  padding: 0;
+
+  border: 2px solid #f2f3f5;
+  border-radius: 100%;
+  background-color: var(--info-paragraph);
+  text-indent: -9999px;
+}
+
+li.slick-active button {
+  background-color: var(--main);
+}
+
+.slick-slide {
+  height: auto !important;
+}
+
+/* the slides */
+.slick-slide {
+  margin: 0 10px;
+}
+/* the parent */
+.slick-list {
+  margin: 0 -10px;
+}
+
+.card {
+  width: 19rem;
+  height: 15rem;
+  transition: box-shadow .7s ease;
+  border: none;
+}
+
+.card .hover-zoom {
+  overflow: hidden;
+  height: 200px;
+  width: 100%;
+}
+
+.card .badge {
+  left: 20px;
+  padding: 7px 10px;
+  position: absolute;
+  top: 20px;
+  z-index: 9;
+}
+.card .hover-zoom img{
+  transition: transform .5s ease;
+}
+
+.card .hover-zoom:hover img {
+  transform: scale(1.5);
+}
+
+
+.card p{
+  color: var(--info-paragraph);
+}
+
+.card h3{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.card .card-text i:before,
+.box i:before{
+  margin-left: 0;
+  color: var(--main);
+}
+
+.card .card-body ul li{
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.card .card-body ul li.house {
+  border: solid 1px green;
+  padding: 3px 10px;
+  border-radius: 30px;
+
+}
+
+.card .card-body ul li.house a {
+  color: green;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.card .card-body ul li.house a:hover {
+  color: darkgreen;
+}
+
+.card .card-body ul li.cabin {
+  border: solid 1px orange;
+  padding: 3px 10px;
+  border-radius: 30px;
+}
+
+.card .card-body ul li.cabin a {
+  color: orange;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+section{
+  padding-top: 5vh;
+}
+
+#gallery img{
+  border-radius: 5px;
+}
+
+.nopadding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.box {
+  background: white;
+  padding: 30px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  color: var(--grey-color);
+  width: 100%;
+  height: auto;
+}
+
+.box h6 span {
+  font-weight: normal;
+}
+
+.box textarea {
+  min-height: 100px !important;
+}
+.images img:not(:first-child) {
+  margin-left: 8px;
+}
+
+.box a {
+  text-decoration: none;
+  color: var(--main);
+}
+
+.box a:hover {
+  color: var(--darkblue);
+}
