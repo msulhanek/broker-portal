@@ -297,9 +297,9 @@ li.slick-active button {
   background-color: var(--main);
 }
 
-.slick-slide {
-  height: auto !important;
-}
+//.slick-slide {
+//  height: auto !important;
+//}
 
 /* the slides */
 .slick-slide {
@@ -311,8 +311,6 @@ li.slick-active button {
 }
 
 .card {
-  width: 19rem;
-  height: 15rem;
   transition: box-shadow .7s ease;
   border: none;
 }
@@ -405,7 +403,7 @@ section{
 .box {
   background: white;
   padding: 30px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
   color: var(--grey-color);
   width: 100%;
   height: auto;
