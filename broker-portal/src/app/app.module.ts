@@ -9,6 +9,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { PropertyDetailComponent } from './property-detail/property-detail.component';
 import { PropertySliderComponent } from './property-slider/property-slider.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +21,7 @@ import { PropertySliderComponent } from './property-slider/property-slider.compo
   imports: [
     BrowserModule,
     SlickCarouselModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
