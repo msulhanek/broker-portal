@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {PropertyService} from "../services/property.service";
 
 @Component({
   selector: 'app-property-slider',
@@ -50,9 +51,12 @@ export class PropertySliderComponent implements OnInit {
     ]
   };
 
-  constructor() { }
+  constructor(private propertyService: PropertyService) { }
 
   ngOnInit(): void {
+    this.propertyService.getAll().subscribe(
+      property => console.log(property)
+    )
   }
 
 
