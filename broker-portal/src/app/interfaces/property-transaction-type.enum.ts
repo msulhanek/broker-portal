@@ -1,4 +1,5 @@
 export enum PropertyTransactionType {
   SELL = 'PREDAJ',
-  BUY = 'KUPA'
+  BUY = 'KUPA',
+  RENT = 'PRENAJOM'
 }

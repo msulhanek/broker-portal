@@ -56,7 +56,7 @@ export class PropertySliderComponent implements OnInit {
 
   ngOnInit(): void {
     this.propertyService.getAll().subscribe(
-      property => console.log(property)
+
     )
 
     this.propertyService.getSuggested('(visualId:*crt*)').subscribe(search => {

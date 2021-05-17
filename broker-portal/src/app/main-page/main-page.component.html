@@ -1,7 +1,7 @@
 <header id="hero" class="mt-4 ">
   <div class="masthead container">
-    <div class="row">
-      <div class="col-lg-7 col-md-12">
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-lg-10 col-md-12">
         <div class="mt-5 search-form">
           <h3>Vyhľadávanie</h3>
           <form action="" method="" class="mt-4">
@@ -9,13 +9,11 @@
               <div class="col-lg-6 col-md-12">
                 <div class="form-group mb-2">
                   <label>Kraj</label>
-
-
-                  <select  class="form-control mt-2">
-                    <option selected>Kraj</option>
-                    <option>Trenčianský kraj</option>
-                    <option>Prešovský kraj</option>
-                    <option>Bratislavský kraj</option>
+                  <select  class="form-control mt-2" (change)="setRegions($event.target)">
+                      <option selected>Kraj</option>
+                      <option *ngFor="let county of counties" value="{{county.stringId}}">
+                        {{county.title}}
+                      </option>
                   </select>
                 </div>
               </div>
@@ -24,9 +22,9 @@
                   <label>Okres</label>
                   <select  class="form-control mt-2">
                     <option selected>Okres</option>
-                    <option>Trenčín</option>
-                    <option>Ilava</option>
-                    <option>Bardejov</option>
+                    <option *ngFor="let region of regions | keyvalue" value="{{region.key}}">
+                       {{region.value}}
+                    </option>
                   </select>
                 </div>
               </div>
@@ -49,9 +47,9 @@
                   <label>Typ transakcie</label>
                   <select  class="form-control mt-2">
                     <option selected>Typ transakcie</option>
-                    <option>Predaj</option>
-                    <option>Prenájom</option>
-                    <option>Kúpa</option>
+                    <option *ngFor="let type of types" value="{{type.stringId}}">
+                      {{type.title}}
+                    </option>
                   </select>
                 </div>
               </div>
