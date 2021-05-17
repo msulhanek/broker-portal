@@ -9,6 +9,7 @@ export class MainPageComponent implements OnInit {
   counties = [];
   regions = new Map<string, string>();
   types =[];
+  cities = new Map<string, string>();
   constructor(private searchService: SearchService) { }
 
   ngOnInit(): void {
@@ -16,7 +17,7 @@ export class MainPageComponent implements OnInit {
     this.getTypes();
   }
 
-  getCounties() {
+  private getCounties() {
     this.searchService.getAllCounties().subscribe(
         request => {
           request._embedded.cases.forEach( (value) =>{
@@ -27,16 +28,23 @@ export class MainPageComponent implements OnInit {
     );
   }
 
-  setRegions(event: EventTarget): void {
+  public setRegions(event: EventTarget): void {
     this.searchService.getCounty((event as HTMLInputElement).value).subscribe(
       request =>
       this.searchService.getAllRegions(request._embedded.tasks[1].stringId).subscribe(
-        request => { console.log(request._embedded.dataGroups[0].fields._embedded.localisedEnumerationMapFields[0].options);
+        request => {
           this.regions = request._embedded.dataGroups[0].fields._embedded.localisedEnumerationMapFields[0].options;
-          // this.sort(this.regions)
-        }
-      )
+        })
     )
+  }
+
+  public setCities(event: EventTarget): void{
+    this.searchService.getRegion((event as HTMLInputElement).value).subscribe(
+      request => {
+        this.searchService.getAllRegions(request._embedded.tasks[1].stringId).subscribe(
+          request =>this.cities = request._embedded.dataGroups[0].fields._embedded.localisedEnumerationMapFields[0].options
+        )
+      })
   }
 
   private getTypes() {

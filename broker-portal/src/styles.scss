@@ -39,11 +39,11 @@ body {
 }
 
 #hero{
-  background: linear-gradient(rgba(0,0,0, 0.3),rgba(0,0,0,0.7)), url('https://source.unsplash.com/koH7IVuwRLw/1920x1000');
+  background: #2540a2 url("assets/images/main.png") no-repeat;
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 70vh;
+  height: 80vh;
   width: 100%;
 }
 
@@ -55,37 +55,6 @@ body {
   height: 8vh;
   width: 100%;
 }
-
-
-
-#hero .masthead h1{
-  font-size: 3rem;
-
-}
-
-#hero .masthead h1 span{
-  font-weight: bold;
-}
-
-#hero .masthead .search-form{
-  background: white;
-  color: black;
-  padding: 40px;
-  border-radius: 5px ;
-  width: 100%;
-}
-
-#hero .masthead .search-form h3{
-  font-weight: bold;
-}
-
-#hero .masthead .search-form label,
-.box label{
-  color: var(--grey-color);
-  font-weight: bold;
-  font-size: 15px;
-}
-
 
 #navbar{
   transition:all 0.8s ease;
@@ -104,7 +73,11 @@ body {
 }
 
 #navbar.sticky ul > li a {
-  color: darkgray;
+  color: black;
+}
+
+#navbar.sticky ul > li a:hover {
+  border: 1px solid darkgray;
 }
 
 #navbar .navbar-brand{
@@ -131,11 +104,15 @@ body {
 
 #navbar ul > li a {
   color: white;
+  padding: 8px 15px;
+  margin: 10px;
+  border: 1px solid transparent;
+  border-radius: 25px;
 }
 
 #navbar ul > li a:hover,
 #navbar ul > li a.active{
-  color: var(--darkblue);
+  border: 1px solid white;
 }
 
 .navbar-toggler,
@@ -216,6 +193,38 @@ body {
   color: white;
 }
 
+
+#search{
+  padding-top: 150px;
+}
+
+#search  h1{
+  font-size: 3rem;
+
+}
+
+#search  h1 span{
+  font-weight: bold;
+}
+
+#search .search-form{
+  background: white;
+  color: black;
+  padding: 40px;
+  border-radius: 5px ;
+  width: 100%;
+}
+
+#search  .search-form h3{
+  font-weight: bold;
+}
+
+#search  .search-form label,
+.box label{
+  color: var(--grey-color);
+  font-weight: bold;
+  font-size: 15px;
+}
 
 i:before{
   margin-left: 5px;

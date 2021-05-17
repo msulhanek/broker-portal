@@ -1,98 +1,104 @@
-<header id="hero" class="mt-4 ">
-  <div class="masthead container">
-    <div class="row d-flex justify-content-center align-items-center">
-      <div class="col-lg-10 col-md-12">
-        <div class="mt-5 search-form">
-          <h3>Vyhľadávanie</h3>
-          <form action="" method="" class="mt-4">
-            <div class="row">
-              <div class="col-lg-6 col-md-12">
-                <div class="form-group mb-2">
-                  <label>Kraj</label>
-                  <select  class="form-control mt-2" (change)="setRegions($event.target)">
+<header id="hero">
+  <section id="search">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-12">
+          <div class="mt-5 search-form">
+            <h3>Vyhľadávanie</h3>
+            <form action="" method="" class="mt-4">
+              <div class="row">
+                <div class="col-lg-4 col-md-12">
+                  <div class="form-group mb-2">
+                    <label>Kraj</label>
+                    <select  class="form-control mt-2" (change)="setRegions($event.target)">
                       <option selected>Kraj</option>
                       <option *ngFor="let county of counties" value="{{county.stringId}}">
                         {{county.title}}
                       </option>
-                  </select>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group mb-2">
+                    <label>Okres</label>
+                    <select  class="form-control mt-2" (change)="setCities($event.target)">
+                      <option selected>Okres</option>
+                      <option *ngFor="let region of regions | keyvalue" value="{{region.key}}">
+                        {{region.value}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group mb-2">
+                    <label>Obec</label>
+                    <select  class="form-control mt-2">
+                      <option selected>Obec</option>
+                      <option *ngFor="let city of cities | keyvalue" value="{{city.key}}">
+                        {{city.value}}
+                      </option>
+                    </select>
+                  </div>
                 </div>
               </div>
-              <div class="col-lg-6">
-                <div class="form-group mb-2">
-                  <label>Okres</label>
-                  <select  class="form-control mt-2">
-                    <option selected>Okres</option>
-                    <option *ngFor="let region of regions | keyvalue" value="{{region.key}}">
-                       {{region.value}}
-                    </option>
-                  </select>
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                Zobraziť ostatné filtre
+              </button>
+              <div class="collapse" id="xx">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group mb-2">
+                      <label>Typ transakcie</label>
+                      <select  class="form-control mt-2">
+                        <option selected>Typ transakcie</option>
+                        <option *ngFor="let type of types" value="{{type.stringId}}">
+                          {{type.title}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group mb-2">
+                      <label>Kategória</label>
+                      <select  class="form-control mt-2">
+                        <option selected>Kategória</option>
+                        <option>Domy</option>
+                        <option>Byty</option>
+                        <option>Apartmány</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group mb-2">
+                      <label>Podkategórie</label>
+                      <select  class="form-control mt-2">
+                        <option selected>Podkategórie</option>
+                        <option>Chaty a chalupy</option>
+                        <option>Záhradky</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group mb-2">
+                      <label>Cena od</label>
+                      <input type="number" min="0" class="form-control mt-2" placeholder="Cena od">
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group mb-2">
+                      <label>Cena do</label>
+                      <input type="number" min="0" class="form-control mt-2" placeholder="Cena do">
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="col-lg-6">
-                <div class="form-group mb-2">
-                  <label>Obec</label>
-                  <select  class="form-control mt-2">
-                    <option selected>Obec</option>
-                    <option>Trenčín</option>
-                    <option>Horná súča</option>
-                    <option>Ilava</option>
-                    <option>Bardejov</option>
-                    <option>Kurimka</option>
-                    <option>Kochanovce</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group mb-2">
-                  <label>Typ transakcie</label>
-                  <select  class="form-control mt-2">
-                    <option selected>Typ transakcie</option>
-                    <option *ngFor="let type of types" value="{{type.stringId}}">
-                      {{type.title}}
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group mb-2">
-                  <label>Kategória</label>
-                  <select  class="form-control mt-2">
-                    <option selected>Kategória</option>
-                    <option>Domy</option>
-                    <option>Byty</option>
-                    <option>Apartmány</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group mb-2">
-                  <label>Podkategórie</label>
-                  <select  class="form-control mt-2">
-                    <option selected>Podkategórie</option>
-                    <option>Chaty a chalupy</option>
-                    <option>Záhradky</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group mb-2">
-                  <label>Cena od</label>
-                  <input type="number" min="0" class="form-control mt-2" placeholder="Cena od">
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group mb-2">
-                  <label>Cena do</label>
-                  <input type="number" min="0" class="form-control mt-2" placeholder="Cena do">
-                </div>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary form-control">Vyhľadať <i class="fas fa-search ml-2"></i></button>
-          </form>
+              <button type="submit" class="btn btn-primary form-control">Vyhľadať <i class="fas fa-search ml-2"></i></button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </header>
 
 <main class="inzeraty">
@@ -104,4 +110,3 @@
       <app-property-slider></app-property-slider>
     </div>
 </main>
-
