@@ -12,6 +12,7 @@ import { AgentDetailComponent } from './agent-detail/agent-detail.component';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AppInitService, initializeApp} from "./services/app-init.service";
 import {TokenInterceptorService} from "./services/token-interceptor.service";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 // @ts-ignore
@@ -28,7 +29,8 @@ import {TokenInterceptorService} from "./services/token-interceptor.service";
     BrowserModule,
     SlickCarouselModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [AppInitService,
     {

@@ -32,6 +32,11 @@ a:hover {
   text-decoration: none;
 }
 
+button:focus {
+  outline:none !important;
+  box-shadow: none !important;
+}
+
 body {
   background: #fff;
   font-family: 'Montserrat', serif;
@@ -55,6 +60,8 @@ body {
   height: 8vh;
   width: 100%;
 }
+
+
 
 #navbar{
   transition:all 0.8s ease;
