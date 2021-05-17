@@ -1,6 +1,6 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { SlickCarouselModule } from 'ngx-slick-carousel';
+import {BrowserModule} from '@angular/platform-browser';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {SlickCarouselModule} from 'ngx-slick-carousel';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +10,15 @@ import { PropertyDetailComponent } from './property-detail/property-detail.compo
 import { PropertySliderComponent } from './property-slider/property-slider.component';
 import { AgentDetailComponent } from './agent-detail/agent-detail.component';
 import {HttpClientModule} from "@angular/common/http";
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {MainPageComponent} from './main-page/main-page.component';
+import {NavbarComponent} from './navbar/navbar.component';
+import {PropertyDetailComponent} from './property-detail/property-detail.component';
+import {PropertySliderComponent} from './property-slider/property-slider.component';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {AppInitService, initializeApp} from "./services/app-init.service";
+import {TokenInterceptorService} from "./services/token-interceptor.service";
 
 
 // @ts-ignore
@@ -28,7 +37,19 @@ import {HttpClientModule} from "@angular/common/http";
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AppInitService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [AppInitService],
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
