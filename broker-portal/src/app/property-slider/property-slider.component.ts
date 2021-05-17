@@ -1,79 +1,67 @@
-import {Component, OnInit} from '@angular/core';
-import {PropertyService} from "../services/property.service";
-import {SearchCase} from "../interfaces/search-case.model";
+import {Component, Input} from '@angular/core';
 import {TaskData} from "../interfaces/task-data.model";
+import {PROPERTY_SLIDER_CONFIG} from "./property-slider.config";
 
 @Component({
   selector: 'app-property-slider',
   templateUrl: './property-slider.component.html',
   styles: []
 })
-export class PropertySliderComponent implements OnInit {
+export class PropertySliderComponent {
 
-  latestProperties: TaskData;
+  @Input() latestProperties: TaskData[];
 
-  slides = [
-    {img: "http://placehold.it/350x150/000000"},
-    {img: "http://placehold.it/350x150/000000"},
-    {img: "http://placehold.it/350x150/000000"},
-    {img: "http://placehold.it/350x150/000000"},
-    {img: "http://placehold.it/350x150/000000"}
-  ];
-  slideConfig = {
-    dots: true,
-    infinite: true,
-    arrows: false,
-    focusOnSelect: false,
-    speed: 300,
-    slidesToShow: 3,
-    slidesToScroll: 2,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          infinite: true,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
-  };
+  img: "http://placehold.it/350x150/000000";
 
-  constructor(private propertyService: PropertyService) {
+  slideConfig = PROPERTY_SLIDER_CONFIG;
+
+  constructor() {
   }
 
-  ngOnInit(): void {
-    this.propertyService.getAll().subscribe(
-
-    )
-
-    this.propertyService.getSuggested('(visualId:*crt*)').subscribe(search => {
-      const cases: SearchCase[] = search._embedded.cases as SearchCase[];
-      for (const case1 of cases) {
-        this.propertyService.getTask(case1.stringId).subscribe(searchRequest => {
-          const tasks: SearchCase[] = searchRequest._embedded.tasks as SearchCase[];
-          this.propertyService.getData(tasks[0].stringId).subscribe(data => {
-            this.latestProperties = this.propertyService.parseData(data);
-          });
-        });
-      }
-    });
+  getPrice(stringId: string): string {
+    const property: TaskData = this.latestProperties.find(p => p.stringId === stringId);
+    return property.localisedNumberFields.find(n => n.stringId === 'text_0').value;
   }
 
+  getTransactionType(stringId: string): string {
+    const property: TaskData = this.latestProperties.find(p => p.stringId === stringId);
+    return property.localisedEnumerationMapFields.find(n => n.stringId === 'enumeration_0').value;
+  }
 
+  getType(stringId: string): string {
+    const property: TaskData = this.latestProperties.find(p => p.stringId === stringId);
+    return property.localisedEnumerationMapFields.find(n => n.stringId === 'text_7').value;
+  }
+
+  getAddress(stringId: string): string {
+    const property: TaskData = this.latestProperties.find(p => p.stringId === stringId);
+    return property.localisedTextFields.find(n => n.stringId === 'text_6').value;
+  }
+
+  getObec(stringId: string): string {
+    const property: TaskData = this.latestProperties.find(p => p.stringId === stringId);
+    return property.localisedEnumerationMapFields.find(n => n.stringId === 'text_5').value;
+  }
+
+  getTransactionBadgeColor(stringId: string): string {
+    switch (this.getTransactionType(stringId)) {
+      case 'Predaj':
+        return 'bg-success';
+      case 'Kúpa':
+        return 'bg-danger';
+      default:
+        return 'bg-info';
+    }
+  }
+
+  getTypeBadgeColor(stringId: string): string {
+    switch (this.getType(stringId)) {
+      case 'Domy':
+        return 'house';
+      case 'Chaty':
+        return 'cabin';
+      default:
+        return 'flat';
+    }
+  }
 }

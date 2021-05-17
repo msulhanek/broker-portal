@@ -373,11 +373,10 @@ li.slick-active button {
   border: solid 1px green;
   padding: 3px 10px;
   border-radius: 30px;
-
+  color: green;
 }
 
 .card .card-body ul li.house a {
-  color: green;
   text-decoration: none;
   font-size: 12px;
 }
@@ -390,10 +389,22 @@ li.slick-active button {
   border: solid 1px orange;
   padding: 3px 10px;
   border-radius: 30px;
+  color: orange;
 }
 
 .card .card-body ul li.cabin a {
-  color: orange;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.card .card-body ul li.flat {
+  border: solid 1px red;
+  padding: 3px 10px;
+  border-radius: 30px;
+  color: red;
+}
+
+.card .card-body ul li.flat a {
   text-decoration: none;
   font-size: 12px;
 }

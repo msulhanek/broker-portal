@@ -13,6 +13,7 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AppInitService, initializeApp} from "./services/app-init.service";
 import {TokenInterceptorService} from "./services/token-interceptor.service";
 import {ReactiveFormsModule} from "@angular/forms";
+import { CompanyDetailComponent } from './company-detail/company-detail.component';
 
 
 // @ts-ignore
@@ -23,7 +24,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     NavbarComponent,
     PropertyDetailComponent,
     PropertySliderComponent,
-    AgentDetailComponent
+    AgentDetailComponent,
+    CompanyDetailComponent
   ],
   imports: [
     BrowserModule,

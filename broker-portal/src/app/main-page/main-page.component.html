@@ -108,7 +108,7 @@
       <div class="heading">
         <h1>Posledné pridané inzeráty</h1>
       </div>
-      <app-property-slider></app-property-slider>
+      <app-property-slider *ngIf="latestProperties.length" [latestProperties]="latestProperties"></app-property-slider>
     </div>
 </main>
 

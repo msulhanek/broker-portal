@@ -6,4 +6,6 @@ export interface TaskData {
   localisedEnumerationMapFields?: MapFields[];
   localisedNumberFields?: NumberFields[];
   localisedTextFields?: TextFields[];
+  title?: string;
+  stringId?: string;
 }
