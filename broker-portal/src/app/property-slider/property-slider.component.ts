@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PropertyService} from "../services/property.service";
+import {SearchCase} from "../interfaces/search-case.model";
 
 @Component({
   selector: 'app-property-slider',
   templateUrl: './property-slider.component.html',
-  styles: [
-  ]
+  styles: []
 })
 export class PropertySliderComponent implements OnInit {
 
@@ -51,14 +51,25 @@ export class PropertySliderComponent implements OnInit {
     ]
   };
 
-  constructor(private propertyService: PropertyService) { }
+  constructor(private propertyService: PropertyService) {
+  }
 
   ngOnInit(): void {
     this.propertyService.getAll().subscribe(
       property => console.log(property)
     )
-  }
 
+    this.propertyService.getSuggested('(visualId:*crt*)').subscribe(test => {
+      console.log(test);
+      const asf: SearchCase[] = test._embedded.cases as SearchCase[];
+      console.log(asf);
+      for(const t of asf){
+        this.propertyService.getTask(t.stringId).subscribe(task => {
+          console.log(task);
+        });
+      }
+    });
+  }
 
 
 }
