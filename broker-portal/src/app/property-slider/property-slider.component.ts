@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PropertyService} from "../services/property.service";
 import {SearchCase} from "../interfaces/search-case.model";
+import {TaskData} from "../interfaces/task-data.model";
 
 @Component({
   selector: 'app-property-slider',
@@ -8,6 +9,8 @@ import {SearchCase} from "../interfaces/search-case.model";
   styles: []
 })
 export class PropertySliderComponent implements OnInit {
+
+  latestProperties: TaskData;
 
   slides = [
     {img: "http://placehold.it/350x150/000000"},
@@ -67,7 +70,8 @@ export class PropertySliderComponent implements OnInit {
         this.propertyService.getTask(case1.stringId).subscribe(searchRequest => {
           const tasks: SearchCase[] = searchRequest._embedded.tasks as SearchCase[];
           this.propertyService.getData(tasks[0].stringId).subscribe(data => {
-            console.log('data', data);
+            this.latestProperties = this.propertyService.parseData(data);
+            console.log(this.latestProperties);
           });
         });
       }

@@ -16,18 +16,18 @@ export class MainPageComponent implements OnInit {
     this.getTypes();
   }
 
-  private getCounties() {
+  getCounties() {
     this.searchService.getAllCounties().subscribe(
         request => {
           request._embedded.cases.forEach( (value) =>{
             this.counties.push(value);
           });
-          this.sort(this.counties)
+          MainPageComponent.sort(this.counties)
         }
     );
   }
 
-  private setRegions(event: EventTarget): void {
+  setRegions(event: EventTarget): void {
     this.searchService.getCounty((event as HTMLInputElement).value).subscribe(
       request =>
       this.searchService.getAllRegions(request._embedded.tasks[1].stringId).subscribe(
@@ -47,10 +47,10 @@ export class MainPageComponent implements OnInit {
           })
       }
     )
-    this.sort(this.types)
+    MainPageComponent.sort(this.types)
   }
 
-  private sort(list){
+  private static sort(list){
     list.sort((a, b) => a.title.localeCompare(b.title));
   }
 }

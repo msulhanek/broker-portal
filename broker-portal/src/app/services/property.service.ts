@@ -3,6 +3,9 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Property} from "../interfaces/property";
 import {SearchRequest} from "../interfaces/search-request.model";
+import {TaskData} from "../interfaces/task-data.model";
+import {MapFields} from "../interfaces/map-fields.model";
+import {DataGroups} from "../interfaces/data-groups.model";
 
 @Injectable({
   providedIn: 'root'
@@ -43,5 +46,40 @@ export class PropertyService {
     let group = {group: '5f86b23cf9ac3b272d6c4e4d'};
 
     return this.httpClient.post(' https://engine.interes.group/api/workflow/case/search?sort=stringId,desc&size=25&page=0', group);
+  }
+
+  parseData(data): TaskData {
+    const result: TaskData = {
+      localisedEnumerationMapFields: [],
+      localisedNumberFields: [],
+      localisedTextFields: []
+    };
+
+    const dataGroups: DataGroups[] = data._embedded.dataGroups as DataGroups[];
+
+    dataGroups.forEach(dataGroup => {
+      if (dataGroup.fields._embedded.localisedTextFields) {
+        result.localisedTextFields.push(...dataGroup.fields._embedded.localisedTextFields);
+      }
+      if (dataGroup.fields._embedded.localisedNumberFields) {
+        result.localisedNumberFields.push(...dataGroup.fields._embedded.localisedNumberFields);
+
+      }
+      if (dataGroup.fields._embedded.localisedEnumerationMapFields) {
+        dataGroup.fields._embedded.localisedEnumerationMapFields.forEach(t => {
+          const test: MapFields = {
+            value: PropertyService.parseMap(t, t.value),
+            name: t.name,
+            stringId: t.stringId
+          }
+          result.localisedEnumerationMapFields.push(test);
+        });
+      }
+    })
+    return result;
+  }
+
+  private static parseMap(data: MapFields, value: string): string {
+    return data.options[value]
   }
 }
