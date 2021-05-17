@@ -11,14 +11,16 @@ export class AuthorizationService {
   constructor(private httpClient: HttpClient) {
   }
 
+
   login(): Observable<void> {
     const headers = new HttpHeaders()
       .set("Authorization", "Basic eHN1bGhhbmVrbUBzdHViYS5zazo5MjM3MQ==");
+
 
     return this.httpClient.get<any>('https://engine.interes.group/api/auth/login', {headers, observe: 'response'})
       .pipe(map((resp: HttpResponse<any>) => {
         console.log(resp.headers.get('X-Auth-Token'));
         localStorage.setItem('X-Auth-Token', resp.headers.get('X-Auth-Token'));
-      }));
+    }))
   }
 }

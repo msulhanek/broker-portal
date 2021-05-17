@@ -10,12 +10,13 @@ export class TokenInterceptorService implements HttpInterceptor{
   constructor() {
   }
 
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let tokenizeRequest = req.clone({
-      setHeaders: {
-        "X-Auth-Token": localStorage.getItem('X-Auth-Token')
-      }
-    });
-    return next.handle(tokenizeRequest);
+      let tokenizeRequest = req.clone({
+        setHeaders: {
+          "X-Auth-Token": localStorage.getItem('X-Auth-Token')
+        }
+      });
+      return next.handle(tokenizeRequest);
   }
 }
