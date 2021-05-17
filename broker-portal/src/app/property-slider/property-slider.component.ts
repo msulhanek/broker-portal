@@ -59,13 +59,16 @@ export class PropertySliderComponent implements OnInit {
       property => console.log(property)
     )
 
-    this.propertyService.getSuggested('(visualId:*crt*)').subscribe(test => {
-      console.log(test);
-      const asf: SearchCase[] = test._embedded.cases as SearchCase[];
-      console.log(asf);
-      for(const t of asf){
-        this.propertyService.getTask(t.stringId).subscribe(task => {
-          console.log(task);
+    this.propertyService.getSuggested('(visualId:*crt*)').subscribe(search => {
+      console.log(search);
+      const cases: SearchCase[] = search._embedded.cases as SearchCase[];
+      console.log(cases);
+      for (const case1 of cases) {
+        this.propertyService.getTask(case1.stringId).subscribe(searchRequest => {
+          const tasks: SearchCase[] = searchRequest._embedded.tasks as SearchCase[];
+          this.propertyService.getData(tasks[0].stringId).subscribe(data => {
+            console.log('data', data);
+          });
         });
       }
     });

@@ -29,10 +29,14 @@ export class PropertyService {
     return this.httpClient.post<SearchRequest>('https://engine.interes.group/api/workflow/case/search?sort=creationDateSortable,desc&size=5&page=0&operation=AND', array);
   }
 
-  getTask(id: string): Observable<any> {
+  getTask(id: string): Observable<SearchRequest> {
     const test = {id: id};
 
-    return this.httpClient.post('https://engine.interes.group/api/task/search?sort=priority,desc&size=50&page=0', {case: test});
+    return this.httpClient.post<SearchRequest>('https://engine.interes.group/api/task/search?sort=priority,desc&size=50&page=0', {case: test});
+  }
+
+  getData(id: string): Observable<SearchRequest> {
+    return this.httpClient.get<SearchRequest>(`https://engine.interes.group/api/task/${id}/data`);
   }
 
   test(): Observable<any> {
