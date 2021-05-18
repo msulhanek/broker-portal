@@ -35,6 +35,7 @@ export class MainPageComponent implements OnInit {
       county: ['', Validators.required],
       region: '',
       city: '',
+      transaction: '',
       category: '',
       subcategory: '',
       priceFrom: '',
@@ -55,11 +56,11 @@ export class MainPageComponent implements OnInit {
 
   public setRegions(event: EventTarget): void {
     this.searchService.getTask((event as HTMLInputElement).value).subscribe(
-      request =>
-        this.searchService.getTask(request._embedded.tasks[1].stringId).subscribe(
+      request => {
+        this.searchService.getData(request._embedded.tasks[1].stringId).subscribe(
           request => {
             this.regions = request._embedded.dataGroups[0].fields._embedded.localisedEnumerationMapFields[0].options;
-          })
+          })}
     )
   }
 
@@ -76,7 +77,8 @@ export class MainPageComponent implements OnInit {
             this.searchService.getTask((event as HTMLInputElement).value).subscribe(
       request => {
         this.searchService.getData(request._embedded.tasks[1].stringId).subscribe(
-          request =>this.subcategories = request._embedded.dataGroups[0].fields._embedded.localisedEnumerationMapFields[0].options
+          request => console.log(request)
+            // this.subcategories = request._embedded.dataGroups[0].fields._embedded.localisedEnumerationMapFields[0].options
         )
     })
   }
@@ -125,6 +127,15 @@ export class MainPageComponent implements OnInit {
   }
 
   onSubmit() {
+    const data = this.form.getRawValue();
+    console.log(data);
 
+    // this.searchService.addAquarium(data).subscribe(
+    //   res => {
+    //     this.router.navigateByUrl('/dashboard').then(() => {
+    //       this.router.navigate([this.router.url]);
+    //     });
+    //   }
+    // );
   }
 }

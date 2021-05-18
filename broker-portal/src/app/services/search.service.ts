@@ -20,10 +20,11 @@ export class SearchService {
 
   getTask(id: string): Observable<SearchRequest> {
     const data = {id: id}
-    return this.httpClient.post<SearchRequest>('https://engine.interes.group/api/task/search?sort=stringId,desc&size=25&page=0', {case: data});
+    return this.httpClient.post<SearchRequest>('https://engine.interes.group/api/task/search?sort=priority,desc&size=50&page=0', {case: data});
   }
 
   getData(value: string): Observable<SearchRequest>{
+    console.log(value)
    return this.httpClient.get<SearchRequest>('https://engine.interes.group/api/task/' + value + '/data');
   }
 
@@ -44,4 +45,13 @@ export class SearchService {
     return this.httpClient.post<SearchRequest>('https://engine.interes.group/api/workflow/case/search?sort=stringId,desc&size=25&page=0&operation=OR', data);
 
   }
+
+  // search(data: any): Observable<SearchRequest>{
+  //   const search = {
+  //     group: "5f86b22df9ac3b272d6b4191",
+  //     query: "(visualId:*crt*)"
+  //   }
+  //
+  //   return this.httpClient.post<SearchRequest>()
+  // }
 }

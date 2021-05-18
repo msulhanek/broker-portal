@@ -10,8 +10,8 @@
                 <div class="col-lg-4 col-md-12">
                   <div class="form-group mb-2">
                     <label>Kraj</label>
-                    <select  class="form-control mt-2" (change)="setRegions($event.target)">
-                      <option selected>Kraj</option>
+                    <select  class="form-control mt-2" (change)="setRegions($event.target)" formControlName="county">
+                      <option value="" selected disabled hidden>Kraj</option>
                       <option *ngFor="let county of counties" value="{{county.stringId}}">
                         {{county.title}}
                       </option>
@@ -21,8 +21,8 @@
                 <div class="col-lg-4">
                   <div class="form-group mb-2">
                     <label>Okres</label>
-                    <select  class="form-control mt-2" (change)="setCities($event.target)">
-                      <option selected>Okres</option>
+                    <select  class="form-control mt-2" (change)="setCities($event.target)" formControlName="region">
+                      <option value="" selected disabled hidden>Okres</option>
                       <option *ngFor="let region of regions | keyvalue" value="{{region.key}}">
                         {{region.value}}
                       </option>
@@ -32,8 +32,8 @@
                 <div class="col-lg-4">
                   <div class="form-group mb-2">
                     <label>Obec</label>
-                    <select  class="form-control mt-2">
-                      <option selected>Obec</option>
+                    <select  class="form-control mt-2" formControlName="city">
+                      <option value="" selected disabled hidden>Obec</option>
                       <option *ngFor="let city of cities | keyvalue" value="{{city.key}}">
                         {{city.value}}
                       </option>
@@ -50,8 +50,8 @@
                   <div class="col-lg-6">
                     <div class="form-group mb-2">
                       <label>Typ transakcie</label>
-                      <select  class="form-control mt-2">
-                        <option selected>Typ transakcie</option>
+                      <select  class="form-control mt-2" formControlName="transaction">
+                        <option value="" selected disabled hidden>Typ transakcie</option>
                         <option *ngFor="let type of types" value="{{type.stringId}}">
                           {{type.title}}
                         </option>
@@ -61,8 +61,8 @@
                   <div class="col-lg-6">
                     <div class="form-group mb-2">
                       <label>Kategória</label>
-                      <select  class="form-control mt-2" (change)="setSubCategories($event.target)">
-                        <option selected>Kategória</option>
+                      <select  class="form-control mt-2"  formControlName="category" (change)="setSubCategories($event.target)">
+                        <option value="" selected disabled hidden>Kategória</option>
                         <option *ngFor="let cat of categories" value="{{cat.stringId}}">
                           {{cat.title}}
                         </option>
@@ -72,7 +72,8 @@
                   <div class="col-lg-6">
                     <div class="form-group mb-2">
                       <label>Podkategórie</label>
-                      <select  class="form-control mt-2">
+                      <select  class="form-control mt-2" formControlName="subcategory">
+                        <option value="" selected disabled hidden>Podkategória</option>
                         <option *ngFor="let sub of subcategories | keyvalue" value="{{sub.key}}">
                           {{sub.value}}
                         </option>
@@ -82,13 +83,13 @@
                   <div class="col-lg-6">
                     <div class="form-group mb-2">
                       <label>Cena od</label>
-                      <input type="number" min="0" class="form-control mt-2" placeholder="Cena od">
+                      <input type="number" min="0" formControlName="priceFrom" class="form-control mt-2" placeholder="Cena od">
                     </div>
                   </div>
                   <div class="col-lg-6">
                     <div class="form-group mb-2">
                       <label>Cena do</label>
-                      <input type="number" min="0" class="form-control mt-2" placeholder="Cena do">
+                      <input type="number" min="0"  formControlName="priceTo" class="form-control mt-2" placeholder="Cena do">
                     </div>
                   </div>
                 </div>

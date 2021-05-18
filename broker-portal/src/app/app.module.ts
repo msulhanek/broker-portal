@@ -14,6 +14,7 @@ import {AppInitService, initializeApp} from "./services/app-init.service";
 import {TokenInterceptorService} from "./services/token-interceptor.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
+import { ContactFormComponent } from './contact-form/contact-form.component';
 
 
 // @ts-ignore
@@ -25,7 +26,8 @@ import { CompanyDetailComponent } from './company-detail/company-detail.componen
     PropertyDetailComponent,
     PropertySliderComponent,
     AgentDetailComponent,
-    CompanyDetailComponent
+    CompanyDetailComponent,
+    ContactFormComponent
   ],
   imports: [
     BrowserModule,
