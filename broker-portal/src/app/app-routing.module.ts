@@ -8,7 +8,7 @@ import {CompanyDetailComponent} from "./company-detail/company-detail.component"
 
 const routes: Routes = [
   { path: '', component: MainPageComponent },
-  { path: 'detail', component: PropertyDetailComponent},
+  { path: 'detail/:id', component: PropertyDetailComponent},
   { path: 'agent', component: AgentDetailComponent},
   { path: 'company', component: CompanyDetailComponent},
 ];

@@ -19,6 +19,8 @@ export class MainPageComponent implements OnInit {
   categories = [];
   subcategories: Map<string, string>;
   latestProperties: TaskData[] = [];
+  show: boolean = false;
+  counter: number = 0;
 
   constructor(private searchService: SearchService,
               private propertyService: PropertyService,
@@ -115,9 +117,14 @@ export class MainPageComponent implements OnInit {
         this.propertyService.getTask(case1.stringId).subscribe(searchRequest => {
           const tasks: SearchCase[] = searchRequest._embedded.tasks as SearchCase[];
           this.propertyService.getData(tasks[0].stringId).subscribe(data => {
+            this.counter = this.counter + 1;
+            if(this.counter == cases.length){
+              this.show = true;
+            }
             this.latestProperties.push({
               title: case1.title,
               stringId: case1.stringId,
+              taskStringId: tasks[0].stringId,
               ...this.propertyService.parseData(data)
             });
           });

@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {TaskData} from "../interfaces/task-data.model";
 import {PROPERTY_SLIDER_CONFIG} from "./property-slider.config";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-property-slider',
@@ -15,7 +16,7 @@ export class PropertySliderComponent {
 
   slideConfig = PROPERTY_SLIDER_CONFIG;
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   getPrice(stringId: string): string {
@@ -63,5 +64,10 @@ export class PropertySliderComponent {
       default:
         return 'flat';
     }
+  }
+
+  redirect(stringId: string): void {
+    const property: TaskData = this.latestProperties.find(p => p.stringId === stringId);
+    this.router.navigate([`/detail`, property.stringId]).then();
   }
 }

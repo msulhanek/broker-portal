@@ -42,6 +42,10 @@ export class PropertyService {
     return this.httpClient.get<SearchRequest>(`https://engine.interes.group/api/task/${id}/data`);
   }
 
+  getImage(extension: string): Observable<any> {
+    return this.httpClient.get(`https://engine.interes.group/api/task/${extension}/file/file_0`, {responseType: 'blob'});
+  }
+
   test(): Observable<any> {
     let group = {group: '5f86b23cf9ac3b272d6c4e4d'};
 
@@ -52,7 +56,8 @@ export class PropertyService {
     const result: TaskData = {
       localisedEnumerationMapFields: [],
       localisedNumberFields: [],
-      localisedTextFields: []
+      localisedTextFields: [],
+      localisedFields: []
     };
 
     const dataGroups: DataGroups[] = data._embedded.dataGroups as DataGroups[];
@@ -63,7 +68,9 @@ export class PropertyService {
       }
       if (dataGroup.fields._embedded.localisedNumberFields) {
         result.localisedNumberFields.push(...dataGroup.fields._embedded.localisedNumberFields);
-
+      }
+      if (dataGroup.fields._embedded.localisedFields) {
+        result.localisedFields.push(...dataGroup.fields._embedded.localisedFields);
       }
       if (dataGroup.fields._embedded.localisedEnumerationMapFields) {
         dataGroup.fields._embedded.localisedEnumerationMapFields.forEach(t => {

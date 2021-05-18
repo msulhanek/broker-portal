@@ -3,6 +3,7 @@ import {DataGroups} from "./data-groups.model";
 import {MapFields} from "./map-fields.model";
 import {NumberFields} from "./number-fields.model";
 import {TextFields} from "./text-fields.model";
+import {FileField} from "./file-field.model";
 
 export interface SearchEmbeded {
   cases?: SearchCase[];
@@ -11,4 +12,6 @@ export interface SearchEmbeded {
   localisedEnumerationMapFields?: MapFields[];
   localisedNumberFields?: NumberFields[];
   localisedTextFields?: TextFields[];
+  localisedFields?: FileField[];
+
 }
