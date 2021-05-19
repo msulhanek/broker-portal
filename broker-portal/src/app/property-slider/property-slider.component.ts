@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TaskData} from "../interfaces/task-data.model";
 import {PROPERTY_SLIDER_CONFIG} from "./property-slider.config";
 import {Router} from "@angular/router";
@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
   templateUrl: './property-slider.component.html',
   styles: []
 })
-export class PropertySliderComponent {
+export class PropertySliderComponent implements OnInit{
 
   @Input() latestProperties: TaskData[];
 
@@ -17,6 +17,10 @@ export class PropertySliderComponent {
   slideConfig = PROPERTY_SLIDER_CONFIG;
 
   constructor(private router: Router) {
+  }
+
+  ngOnInit() {
+    console.log(this.latestProperties);
   }
 
   getPrice(stringId: string): string {

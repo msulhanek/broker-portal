@@ -4,6 +4,7 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {SearchCase} from "../interfaces/search-case.model";
 import {PropertyService} from "../services/property.service";
 import {TaskData} from "../interfaces/task-data.model";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-main-page',
@@ -24,14 +25,14 @@ export class MainPageComponent implements OnInit {
 
   constructor(private searchService: SearchService,
               private propertyService: PropertyService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
     this.getCounties();
     this.getTypes();
     this.loadLatest();
-    console.log(this.latestProperties);
     this.getCategories();
     this.form = this.formBuilder.group({
       county: ['', Validators.required],
@@ -117,16 +118,21 @@ export class MainPageComponent implements OnInit {
         this.propertyService.getTask(case1.stringId).subscribe(searchRequest => {
           const tasks: SearchCase[] = searchRequest._embedded.tasks as SearchCase[];
           this.propertyService.getData(tasks[0].stringId).subscribe(data => {
-            this.counter = this.counter + 1;
-            if(this.counter == cases.length){
-              this.show = true;
-            }
-            this.latestProperties.push({
+            const task = {
               title: case1.title,
               stringId: case1.stringId,
               taskStringId: tasks[0].stringId,
               ...this.propertyService.parseData(data)
-            });
+            };
+            this.propertyService.getImage(tasks[0].stringId).subscribe(image => {
+              let objectURL = URL.createObjectURL(image);
+              task.image = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+              this.counter = this.counter + 1;
+              if(this.counter == cases.length){
+                this.show = true;
+              }
+              this.latestProperties.push(task);
+            })
           });
         });
       }

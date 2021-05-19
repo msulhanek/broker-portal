@@ -15,6 +15,10 @@ import {TokenInterceptorService} from "./services/token-interceptor.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
+import {RouteReuseStrategy} from "@angular/router";
+import {CustomRouteReuseStrategy} from "./interfaces/custom-route-reuse-strategy";
+import { PropertyListComponent } from './property-list/property-list.component';
+import { CompanyListComponent } from './company-list/company-list.component';
 
 
 // @ts-ignore
@@ -27,7 +31,9 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
     PropertySliderComponent,
     AgentDetailComponent,
     CompanyDetailComponent,
-    ContactFormComponent
+    ContactFormComponent,
+    PropertyListComponent,
+    CompanyListComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +53,10 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
+    },
+    {
+      provide: RouteReuseStrategy,
+      useClass: CustomRouteReuseStrategy
     }],
   bootstrap: [AppComponent]
 })

@@ -5,7 +5,7 @@
     <div class="row">
       <div class="d-flex justify-content-center flex-column">
         <div class="col-lg-12 mx-auto">
-          <img id="myimage" class="img-fluid" [src]='image' />
+          <img id="myimage" class="img-fluid" [src]='image'/>
         </div>
 
         <div class="mt-2 mb-5 mx-3 images">
@@ -67,12 +67,10 @@
 
       <div class="col-lg-4">
         <div class="box">
-          <h2><a href="agent.html">{{getSeller()}}</a></h2>
-          <h6><a href="company.html">{{getCompanyName()}}</a></h6>
-          <p>{{getCompanyAddress()}}</p>
+          <h2 (click)="redirectToCompany()" style="cursor: pointer">{{getCompanyName()}}</h2>
+          <h6><a href="agent.html">{{getSeller()}}</a></h6>
           <h6>tel. číslo: <span>0918 566 576</span></h6>
           <h6>email: <span>{{getEmail()}}</span></h6>
-          <app-contact-form></app-contact-form>
         </div>
       </div>
 
@@ -81,4 +79,18 @@
   </div>
 </section>
 
+<main class="inzeraty">
 
+  <div class="container">
+    <div class="heading">
+      <h1>Posledné pridané inzeráty</h1>
+    </div>
+    <app-property-slider *ngIf="show" [latestProperties]="latestProperties"></app-property-slider>
+    <div *ngIf="!show" style="height: 10rem;" class="text-center mt-4">
+      <div  class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+
+  </div>
+</main>

@@ -1,0 +1,19 @@
+<header id="detail-hero">
+</header>
+<div class="container" *ngIf="show">
+  <div class="row">
+    <div class="card col-lg-6" *ngFor="let task of taskData">
+      <img (click)="redirect(task.stringId)" *ngIf="task.image" [src]="task.image" width="100%" height="200" style="cursor: pointer">
+      <div class="card-body">
+        <h6>Adresa: <span>{{getAddress(task.stringId)}}</span></h6>
+        <h6>Cena: <span>{{getPrice(task.stringId)}} €</span></h6>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!show" style="height: 10rem;" class="text-center mt-4">
+    <div  class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</div>

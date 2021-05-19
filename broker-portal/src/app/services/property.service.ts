@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Property} from "../interfaces/property";
 import {SearchRequest} from "../interfaces/search-request.model";
 import {TaskData} from "../interfaces/task-data.model";
 import {MapFields} from "../interfaces/map-fields.model";
@@ -15,8 +14,13 @@ export class PropertyService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getAll(): Observable<Property> {
-    return this.httpClient.get('https://engine.interes.group/api/task/6088204df9ac3b6fec93e6ba/data')
+  getAll(queryFilter: string): Observable<SearchRequest> {
+
+    const group = {group: '5f86b22df9ac3b272d6b4191'};
+    const query = {query: queryFilter};
+    const array = [group, query];
+
+    return this.httpClient.post<SearchRequest>('https://engine.interes.group/api/workflow/case/search?sort=creationDateSortable,desc&size=50&page=0&operation=AND', array);
   }
 
   get(): Observable<any> {
