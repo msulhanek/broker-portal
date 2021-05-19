@@ -11,7 +11,6 @@ import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
   templateUrl: './property-detail.component.html'
 })
 export class PropertyDetailComponent implements OnInit {
-  form: FormGroup;
   taskId: string;
   caseId: string;
   taskData: TaskData;
@@ -25,15 +24,6 @@ export class PropertyDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => this.caseId = params.id);
     this.loadData();
-    this.form = this.formBuilder.group({
-      county: ['', Validators.required],
-      region: '',
-      city: '',
-      category: '',
-      subcategory: '',
-      priceFrom: '',
-      priceTo: '',
-    });
   }
 
   private loadData(){
