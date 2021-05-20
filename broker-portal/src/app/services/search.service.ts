@@ -24,7 +24,6 @@ export class SearchService {
   }
 
   getData(value: string): Observable<SearchRequest>{
-    console.log(value)
    return this.httpClient.get<SearchRequest>('https://engine.interes.group/api/task/' + value + '/data');
   }
 

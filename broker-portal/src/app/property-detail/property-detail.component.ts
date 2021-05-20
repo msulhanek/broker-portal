@@ -15,11 +15,13 @@ export class PropertyDetailComponent implements OnInit, OnDestroy {
   taskId: string;
   caseId: string;
   taskData: TaskData;
-  image: SafeUrl;
+  namesPath: {name: string, path: string}[] = [];
+  images: SafeUrl[] = [];
   latestProperties: TaskData[] = [];
   show: boolean = false;
-  counter: number = 0;
+  counterTask: number = 0;
   sink = new SubSink();
+  numbers: number[] = [];
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
@@ -107,13 +109,14 @@ export class PropertyDetailComponent implements OnInit, OnDestroy {
       const tasks: SearchCase[] = searchRequest._embedded.tasks as SearchCase[];
       this.taskId = tasks[0].stringId;
       this.propertyService.getData(this.taskId).subscribe(data => {
+        this.namesPath.push(...data._embedded.dataGroups[0].fields._embedded.localisedFileListFields[0].value.namesPaths);
         this.taskData = {
           stringId: this.caseId,
           taskStringId: this.taskId,
           ...this.propertyService.parseData(data)
         };
-        console.log(this.taskData);
         this.loadImage();
+        this.loadImageList();
       })
     });
   }
@@ -121,7 +124,8 @@ export class PropertyDetailComponent implements OnInit, OnDestroy {
   private loadImage() {
     this.propertyService.getImage(this.taskId).subscribe(data => {
       let objectURL = URL.createObjectURL(data);
-      this.image = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+      this.images.push(this.sanitizer.bypassSecurityTrustUrl(objectURL));
+      this.numbers.push(0);
     })
   }
 
@@ -141,8 +145,8 @@ export class PropertyDetailComponent implements OnInit, OnDestroy {
             this.propertyService.getImage(tasks[0].stringId).subscribe(image => {
               let objectURL = URL.createObjectURL(image);
               task.image = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-              this.counter = this.counter + 1;
-              if(this.counter == cases.length){
+              this.counterTask = this.counterTask + 1;
+              if(this.counterTask == cases.length){
                 this.show = true;
               }
               this.latestProperties.push(task);
@@ -152,4 +156,20 @@ export class PropertyDetailComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  private loadImageList() {
+    if(!this.namesPath){
+      return;
+    }
+    let counter = 1;
+    this.namesPath.forEach(value => {
+      this.propertyService.getImageList(this.taskId, value.name).subscribe(data => {
+        let objectURL = URL.createObjectURL(data);
+        this.images.push(this.sanitizer.bypassSecurityTrustUrl(objectURL));
+        this.numbers.push(counter);
+        counter += 1;
+      })
+    });
+  }
+
 }

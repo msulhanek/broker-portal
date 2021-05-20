@@ -49,12 +49,16 @@ export class CompanyDetailComponent implements OnInit {
 
   private loadData() {
     this.sink.add(this.propertyService.getData(this.taskId).subscribe(data => {
-      this.realtors = data._embedded.dataGroups[0].fields._embedded.localisedEnumerationMapFields[0].options;
+      if(data._embedded.dataGroups[0].fields._embedded.localisedEnumerationMapFields){
+        this.realtors = data._embedded.dataGroups[0].fields._embedded.localisedEnumerationMapFields[0].options;
+      }else{
+        this.realtors = data._embedded.dataGroups[1].fields._embedded.localisedEnumerationMapFields[0].options;
+      }
+
       this.taskData = {
         taskStringId: this.taskId,
         ...this.propertyService.parseData(data)
       };
-      console.log(this.taskData);
     }));
   }
 

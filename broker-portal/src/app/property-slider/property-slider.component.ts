@@ -20,7 +20,6 @@ export class PropertySliderComponent implements OnInit{
   }
 
   ngOnInit() {
-    console.log(this.latestProperties);
   }
 
   getPrice(stringId: string): string {
