@@ -66,7 +66,6 @@ body {
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 10vh;
   width: 100%;
 }
 
@@ -211,11 +210,18 @@ body {
   #search{
     padding-top: 150px;
   }
+  #detail-hero{
+    height: 6vh;
+  }
 }
 
 @media screen and (min-width: 700px ){
   #search{
     padding-top: 80px;
+  }
+
+  #detail-hero{
+    height: 12vh;
   }
 }
 

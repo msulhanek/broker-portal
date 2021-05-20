@@ -10,9 +10,10 @@
             <div class="col-lg-5">
               <img src="https://source.unsplash.com/mW3I5zmyaUc/250x250" class="img-fluid">
               <div class="mt-3">
-                <h3>Arne Michalov</h3>
-                <h6><a href="company.html">Matus Jokay real estate s.r.o.</a></h6>
-                <h6>email: <span>amichalov@jokayagency.sk</span></h6>
+                <h3>{{agent?.name}} {{agent?.surname}}</h3>
+                <h6><a (click)="redirectToCompany()" style="cursor:pointer;">{{agent?.company}}</a></h6>
+                <h6>email: <span>{{agent?.email}}</span></h6>
+                <h6>phone: <span>{{agent?.phone}}</span></h6>
               </div>
             </div>
             <div class="col-lg-7">

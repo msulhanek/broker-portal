@@ -3,6 +3,7 @@ import {TaskData} from "../interfaces/task-data.model";
 import {PropertyService} from "../services/property.service";
 import {SearchCase} from "../interfaces/search-case.model";
 import {DomSanitizer} from "@angular/platform-browser";
+import {ActivatedRoute, Router} from "@angular/router";
 
 
 @Component({
@@ -13,10 +14,19 @@ import {DomSanitizer} from "@angular/platform-browser";
 export class AgentDetailComponent implements OnInit {
   properties: TaskData[] = [];
   show: boolean = false;
-  constructor(private propertyService: PropertyService, private sanitizer: DomSanitizer) { }
+  name: string;
+  id: string;
+  agent: any;
+  constructor(private propertyService: PropertyService, private sanitizer: DomSanitizer, private router: ActivatedRoute,
+              private route: Router) { }
 
   ngOnInit(): void {
+    this.router.paramMap.subscribe(params => {
+      this.id = params.get("id");
+      this.name =params.get('name');
+    })
     this.loadLatest();
+    this.getUser();
   }
 
   private loadLatest() {
@@ -37,11 +47,36 @@ export class AgentDetailComponent implements OnInit {
               task.image = this.sanitizer.bypassSecurityTrustUrl(objectURL);
               this.properties.push(task);
             });
-
           });
       });
       this.show = true;
     });
   });
+  }
+
+  private getUser() {
+
+    this.propertyService.getData(this.id).subscribe( search =>{
+        let data = search._embedded.dataGroups[0].fields._embedded.localisedEnumerationMapFields[0].options
+        let company = search._embedded.dataGroups[0].fields._embedded.localisedTextFields[1].value;
+        for(let value in data){
+          const user = data[value].split(' ')
+          if(`${user[0]} ${user[1]}` === this.name && user[2]){
+            this.agent = {
+              name: user[0],
+              surname: user[1],
+              email: user[3],
+              phone: user[2],
+              company: company
+            }
+          }
+        }
+        console.log(this.agent)
+      }
+    )
+  }
+
+  redirectToCompany() {
+    this.route.navigate(['/company', this.id]);
   }
 }

@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: '', component: MainPageComponent },
   { path: 'detail/:id', component: PropertyDetailComponent},
   { path: 'property-list', component: PropertyListComponent},
-  { path: 'agent', component: AgentDetailComponent},
+  { path: 'agent/:id/:name', component: AgentDetailComponent},
   { path: 'company/:id', component: CompanyDetailComponent},
   { path: 'company-list', component: CompanyListComponent},
   { path: '**', component: MainPageComponent, pathMatch: 'full'}

@@ -84,7 +84,7 @@
       <div class="col-lg-4">
         <div class="box">
           <h2 (click)="redirectToCompany()" style="cursor: pointer">{{getCompanyName()}}</h2>
-          <h6><a href="agent.html">{{getSeller()}}</a></h6>
+          <h6><a (click)="redirectToAgent()" style="cursor: pointer">{{getSeller()}}</a></h6>
           <h6>tel. číslo: <span>0918 566 576</span></h6>
           <h6>email: <span>{{getEmail()}}</span></h6>
         </div>

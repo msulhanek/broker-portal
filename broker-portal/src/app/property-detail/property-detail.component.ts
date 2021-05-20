@@ -99,6 +99,10 @@ export class PropertyDetailComponent implements OnInit, OnDestroy {
     return this.taskData?.localisedTextFields?.find(n => n.stringId.includes('-text_7'))?.value || '';
   }
 
+  getCompanyId(){
+    return this.taskData?.localisedTextFields?.find(n => n.stringId.includes('-text_7'));
+  }
+
   redirectToCompany(){
     const taskId = this.taskData?.localisedTextFields?.find(n => n.stringId.includes('-text_7'));
     this.router.navigate(['/company', taskId.stringId.substring(0, taskId.stringId.indexOf('-'))]).then();
@@ -172,4 +176,9 @@ export class PropertyDetailComponent implements OnInit, OnDestroy {
     });
   }
 
+  redirectToAgent() {
+    const taskId = this.taskData?.localisedTextFields?.find(n => n.stringId.includes('-text_7'));
+    this.router.navigate(['/agent', taskId.stringId.substring(0, taskId.stringId.indexOf('-')),this.getSeller()]).then();
+
+  }
 }

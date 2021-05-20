@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TaskData} from "../interfaces/task-data.model";
 import {PropertyService} from "../services/property.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {SubSink} from "subsink";
 
 @Component({
@@ -16,7 +16,7 @@ export class CompanyDetailComponent implements OnInit {
   realtors = new Map<string, string>();
 
   constructor(private propertyService: PropertyService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute, private router:Router) { }
 
   ngOnInit(): void {
     this.sink.add(this.route.params.subscribe(params => this.taskId = params.id));
@@ -69,5 +69,9 @@ export class CompanyDetailComponent implements OnInit {
       case 1: return parsedValue[2];
       case 2: return parsedValue[3];
     }
+  }
+
+  redirectAgent(s: string) {
+    this.router.navigate(['/agent', this.taskId, this.parseRealtor(s,0)])
   }
 }

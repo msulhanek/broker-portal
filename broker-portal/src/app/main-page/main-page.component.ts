@@ -7,6 +7,7 @@ import {TaskData} from "../interfaces/task-data.model";
 import {DomSanitizer} from "@angular/platform-browser";
 import {Property}  from "../interfaces/property";
 import {Router} from "@angular/router";
+import {count} from "rxjs/operators";
 
 @Component({
   selector: 'app-main-page',
@@ -24,8 +25,9 @@ export class MainPageComponent implements OnInit {
   show: boolean = false;
   counter: number = 0;
   properties : any[] = [];
-  filters: [];
+  filters: Property[];
   search: boolean = false;
+  property: any;
   constructor(private searchService: SearchService,
               private propertyService: PropertyService,
               private formBuilder: FormBuilder,
@@ -37,6 +39,7 @@ export class MainPageComponent implements OnInit {
     this.getTypes();
     this.loadLatest();
     this.getCategories();
+    this.loadData();
     this.form = this.formBuilder.group({
       county: ['', Validators.required],
       region: '',
@@ -163,7 +166,7 @@ export class MainPageComponent implements OnInit {
             let subcategories = data._embedded.dataGroups[4].fields._embedded.localisedEnumerationMapFields[5].options
             let sub = data._embedded.dataGroups[4].fields._embedded.localisedEnumerationMapFields[5].value
             let price = data._embedded.dataGroups[4].fields._embedded.localisedNumberFields[0].value
-            console.log(sub)
+
             property.id = value.stringId;
             property.title = value.title;
             property.address = data._embedded.dataGroups[4].fields._embedded.localisedTextFields[1].value
@@ -186,7 +189,6 @@ export class MainPageComponent implements OnInit {
         });
       })
       this.show = true;
-
     })
   }
 
@@ -220,43 +222,50 @@ export class MainPageComponent implements OnInit {
 
   onSubmit() {
     const data = this.form.getRawValue();
-    this.properties = []
-    this.loadData()
+    this.filters = this.properties
     this.filter(data)
 
   }
 
   private filter(data) {
-    console.log(data);
+
     if (data.priceFrom != '') {
-      this.properties = this.properties.filter(c => c.price <= data.priceFrom)
+      const from = Number(data.priceFrom)
+      this.filters = this.filters.filter(c => c.price >= from)
     }
 
     if (data.priceTo != '') {
-      this.properties = this.properties.filter(c => c.price >= data.priceTo)
+      const to = Number(data.priceTo)
+      this.filters = this.filters.filter(c => c.price <= to)
     }
 
+
     if (data.county != '') {
-      this.properties = this.properties.filter(c => c.county === data.county)
+      const county = this.counties.find(c => c.stringId === data.county).title
+      this.filters = this.filters.filter(c => c._county === county)
     }
 
     if (data.region != '') {
-      this.properties = this.properties.filter(c => c.region === data.region)
+      const region = this.regions[data.region];
+      this.filters = this.filters.filter(c => c.region === region)
     }
 
     if (data.city != '') {
-      this.properties = this.properties.filter(c => c.city === data.city)
+      const city = this.cities[data.city];
+      this.filters = this.filters.filter(c => c.city === city)
     }
 
     if (data.category != '') {
-      this.properties = this.properties.filter(c => c.category === data.category)
+      const category = this.categories.find(c => c.stringId === data.category).title
+      this.filters = this.filters.filter(c => c.category === category)
     }
 
-    if (data.category != '') {
-      this.properties = this.properties.filter(c => c.category === data.category)
+    if (data.subcategory != '') {
+      const subcategory = this.subcategories[data.subcategory];
+      this.filters = this.filters.filter(c => c.subcategory === subcategory)
     }
     this.search = true;
-    console.log(this.properties)
+    console.log(this.filters);
   }
 
 

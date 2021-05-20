@@ -40,7 +40,7 @@
               <img src="https://source.unsplash.com/mW3I5zmyaUc/100x100" class="img-fluid rounded-circle">
             </div>
             <div class="col-lg-9 col-xs-9">
-              <h3><a href="agent.html">{{parseRealtor(realtor.value.toString(), 0)}}</a></h3>
+              <h3><a (click)="redirectAgent(realtor.value.toString())" style="cursor: pointer;">{{parseRealtor(realtor.value.toString(), 0)}}</a></h3>
               <h6>tel. číslo: <span>{{parseRealtor(realtor.value.toString(), 1)}}</span></h6>
               <h6>email: <span>{{parseRealtor(realtor.value.toString(), 2)}}</span></h6>
             </div>

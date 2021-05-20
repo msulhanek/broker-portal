@@ -107,10 +107,10 @@
   <div class="container">
     <div class="heading">
       <h1>Výsledky vyhľadávania</h1>
-      <p>Počeť nájdených položiek: {{this.properties.length}}</p>
+      <p>Počeť nájdených položiek: {{this.filters.length}}</p>
     </div>
     <div class="row">
-      <div class="col-lg-4 mb-3" *ngFor="let property of properties">
+      <div class="col-lg-4 mb-3" *ngFor="let property of filters">
         <div class="card">
           <div class="hover-zoom">
             <span class="badge {{getTransactionBadgeColor(property.transaction)}}">{{property.transaction}}</span>
