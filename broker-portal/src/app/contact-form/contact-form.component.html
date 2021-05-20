@@ -1,33 +1,77 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="submit()">
   <div class="row">
+    <div class="col-lg-12 d-none" id="message-send">
+      <div class="alert alert-success alert-dismissible fade show" role="alert" id="alert-send">
+        Vaša správa bola odoslaná
+        <button type="button" class="close"  aria-label="Close" (click)="onClick()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
     <div class="col-lg-6">
       <div class="form-group">
         <label>Meno</label>
-        <input type="text" class="form-control" placeholder="Meno">
+        <input type="text" class="form-control" id="firstname" formControlName="firstname" placeholder="Meno"
+        [class.is-invalid]="form.controls['firstname'].invalid && (form.controls['firstname'].dirty || form.controls['firstname'].touched)">
+        <div *ngIf="form.controls['firstname'].invalid && (form.controls['firstname'].dirty || form.controls['firstname'].touched)" class="alert">
+          <div *ngIf="form.controls['firstname'].errors.required" class="text-danger">
+            *povinne
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-lg-6">
       <div class="form-group">
         <label>Priezvisko</label>
-        <input type="text" class="form-control" placeholder="Priezvisko">
+        <input type="text" class="form-control" formControlName="surname" placeholder="Priezvisko"
+        [class.is-invalid]="form.controls['surname'].invalid && (form.controls['surname'].dirty || form.controls['surname'].touched)">
+        <div *ngIf="form.controls['surname'].invalid && (form.controls['surname'].dirty || form.controls['surname'].touched)" class="alert">
+          <div *ngIf="form.controls['surname'].errors.required" class="text-danger">
+            *povinne
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-lg-6">
       <div class="form-group">
         <label>Email</label>
-        <input type="email" class="form-control" placeholder="Email">
+        <input type="email" class="form-control" formControlName="email" placeholder="Email"
+        [class.is-invalid]="form.controls['email'].invalid && (form.controls['email'].dirty || form.controls['email'].touched)">
+        <div *ngIf="form.controls['email'].invalid && (form.controls['email'].dirty || form.controls['email'].touched)" class="alert">
+          <div *ngIf="form.controls['email'].errors.required" class="text-danger">
+            *povinne
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-lg-6">
       <div class="form-group">
         <label>Tel. číslo</label>
-        <input type="text" class="form-control" placeholder="Tel. číslo">
+        <input type="text" class="form-control" formControlName="phone" placeholder="Tel. číslo"
+        [class.is-invalid]="form.controls['phone'].invalid && (form.controls['phone'].dirty || form.controls['phone'].touched)">
+        <div *ngIf="form.controls['phone'].invalid && (form.controls['phone'].dirty || form.controls['phone'].touched)" class="alert">
+          <div *ngIf="form.controls['phone'].errors.required" class="text-danger">
+            *povinne
+          </div>
+          <div *ngIf="form.get('phone').hasError('maxlength')">
+            *tel. č. musí obsahovať 10 čísel
+          </div>
+          <div *ngIf="form.get('phone').hasError('minlength')">
+            *tel. č. musí obsahovať 10 čísel
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <div class="form-group">
     <label>Správa</label>
-    <textarea class="form-control" placeholder="Správa"></textarea>
+    <textarea class="form-control" formControlName="message" placeholder="Správa"
+    [class.is-invalid]="form.controls['message'].invalid && (form.controls['message'].dirty || form.controls['message'].touched)">></textarea>
+    <div *ngIf="form.controls['message'].invalid && (form.controls['message'].dirty || form.controls['message'].touched)" class="alert">
+      <div *ngIf="form.controls['message'].errors.required" class="text-danger">
+        *povinne
+      </div>
+    </div>
   </div>
-  <input type="submit" class="btn btn-primary">
+  <input type="submit" [disabled]="form.invalid" class="btn btn-primary">
 </form>
