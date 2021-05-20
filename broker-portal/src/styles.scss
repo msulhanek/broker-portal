@@ -207,10 +207,26 @@ body {
   color: white;
 }
 
-
-#search{
-  padding-top: 150px;
+@media screen and (min-width: 1200px){
+  #search{
+    padding-top: 150px;
+  }
 }
+
+@media screen and (min-width: 700px ){
+  #search{
+    padding-top: 80px;
+  }
+}
+
+@media screen and (max-width: 699px) {
+    .move{
+      transform: translateY(40%);
+    }
+}
+
+
+
 
 #search  h1{
   font-size: 3rem;
@@ -257,7 +273,12 @@ i:before{
   padding-bottom: 5vh;
 }
 
-.inzeraty .heading h1{
+.move{
+  transform: translateY(20%);
+}
+
+.heading h1,
+{
   color: var(--grey-color);
   font-weight: bold;
   padding-top: 8vh;

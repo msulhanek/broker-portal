@@ -5,13 +5,14 @@ import {SearchCase} from "../interfaces/search-case.model";
 import {PropertyService} from "../services/property.service";
 import {TaskData} from "../interfaces/task-data.model";
 import {DomSanitizer} from "@angular/platform-browser";
+import {Property}  from "../interfaces/property";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html'
 })
 export class MainPageComponent implements OnInit {
-
   counties = [];
   regions = new Map<string, string>();
   types =[];
@@ -22,11 +23,13 @@ export class MainPageComponent implements OnInit {
   latestProperties: TaskData[] = [];
   show: boolean = false;
   counter: number = 0;
-
+  properties : any[] = [];
+  filters: [];
+  search: boolean = false;
   constructor(private searchService: SearchService,
               private propertyService: PropertyService,
               private formBuilder: FormBuilder,
-              private sanitizer: DomSanitizer) {
+              private sanitizer: DomSanitizer,private router: Router) {
   }
 
   ngOnInit(): void {
@@ -80,8 +83,8 @@ export class MainPageComponent implements OnInit {
             this.searchService.getTask((event as HTMLInputElement).value).subscribe(
       request => {
         this.searchService.getData(request._embedded.tasks[1].stringId).subscribe(
-          request => console.log(request)
-            // this.subcategories = request._embedded.dataGroups[0].fields._embedded.localisedEnumerationMapFields[0].options
+          request =>
+            this.subcategories = request._embedded.dataGroups[0].fields._embedded.localisedEnumerationMapFields[0].options
         )
     })
   }
@@ -106,9 +109,85 @@ export class MainPageComponent implements OnInit {
       });
   }
 
+  getTransactionType(stringId: string): string {
+    const property: TaskData = this.latestProperties.find(p => p.stringId === stringId);
+    return property.localisedEnumerationMapFields.find(n => n.stringId === 'enumeration_0').value;
+  }
+  getTransactionBadgeColor(stringId: string): string {
+    switch (stringId) {
+      case 'Predaj':
+        return 'bg-success';
+      case 'Kúpa':
+        return 'bg-danger';
+      default:
+        return 'bg-info';
+    }
+  }
+
+  getTypeBadgeColor(stringId: string): string {
+    switch (stringId) {
+      case 'Domy':
+        return 'house';
+      case 'Chaty':
+        return 'cabin';
+      default:
+        return 'flat';
+    }
+  }
+
+  redirect(stringId: string): void {
+    this.router.navigate([`/detail`, stringId]).then();
+  }
 
   private static sort(list) {
     list.sort((a, b) => a.title.localeCompare(b.title));
+  }
+
+  private loadData() {
+    this.searchService.search('(visualId:*crt*)').subscribe(search => {
+      search._embedded.cases.forEach((value) => {
+        this.propertyService.getTask(value.stringId).subscribe(searchRequest => {
+          const tasks: SearchCase[] = searchRequest._embedded.tasks as SearchCase[];
+          this.propertyService.getData(tasks[0].stringId).subscribe(data => {
+            let property = new Property();
+            let transactions = data._embedded.dataGroups[4].fields._embedded.localisedEnumerationMapFields[0].options
+            let trans = data._embedded.dataGroups[4].fields._embedded.localisedEnumerationMapFields[0].value
+            let categories = data._embedded.dataGroups[4].fields._embedded.localisedEnumerationMapFields[1].options
+            let cat = data._embedded.dataGroups[4].fields._embedded.localisedEnumerationMapFields[1].value
+            let counties = data._embedded.dataGroups[4].fields._embedded.localisedEnumerationMapFields[2].options
+            let county = data._embedded.dataGroups[4].fields._embedded.localisedEnumerationMapFields[2].value
+            let regions = data._embedded.dataGroups[4].fields._embedded.localisedEnumerationMapFields[3].options
+            let region = data._embedded.dataGroups[4].fields._embedded.localisedEnumerationMapFields[3].value
+            let cities = data._embedded.dataGroups[4].fields._embedded.localisedEnumerationMapFields[4].options
+            let city = data._embedded.dataGroups[4].fields._embedded.localisedEnumerationMapFields[4].value
+            let subcategories = data._embedded.dataGroups[4].fields._embedded.localisedEnumerationMapFields[5].options
+            let sub = data._embedded.dataGroups[4].fields._embedded.localisedEnumerationMapFields[5].value
+            let price = data._embedded.dataGroups[4].fields._embedded.localisedNumberFields[0].value
+            console.log(sub)
+            property.id = value.stringId;
+            property.title = value.title;
+            property.address = data._embedded.dataGroups[4].fields._embedded.localisedTextFields[1].value
+            property.transaction = transactions[trans];
+            property.category = categories[cat];
+            property.county = counties[county];
+            property.region = regions[region];
+            property.city = cities[city];
+            property.county = counties[county];
+            property.subcategory = subcategories[sub];
+            property.price = Number(price);
+
+            this.propertyService.getImage(tasks[0].stringId).subscribe(image => {
+              let objectURL = URL.createObjectURL(image);
+              property.image = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+              this.properties.push(property);
+            });
+
+          });
+        });
+      })
+      this.show = true;
+
+    })
   }
 
   private loadLatest() {
@@ -141,14 +220,55 @@ export class MainPageComponent implements OnInit {
 
   onSubmit() {
     const data = this.form.getRawValue();
-    console.log(data);
+    this.properties = []
+    this.loadData()
+    this.filter(data)
 
-    // this.searchService.addAquarium(data).subscribe(
-    //   res => {
-    //     this.router.navigateByUrl('/dashboard').then(() => {
-    //       this.router.navigate([this.router.url]);
-    //     });
-    //   }
-    // );
+  }
+
+  private filter(data) {
+    console.log(data);
+    if (data.priceFrom != '') {
+      this.properties = this.properties.filter(c => c.price <= data.priceFrom)
+    }
+
+    if (data.priceTo != '') {
+      this.properties = this.properties.filter(c => c.price >= data.priceTo)
+    }
+
+    if (data.county != '') {
+      this.properties = this.properties.filter(c => c.county === data.county)
+    }
+
+    if (data.region != '') {
+      this.properties = this.properties.filter(c => c.region === data.region)
+    }
+
+    if (data.city != '') {
+      this.properties = this.properties.filter(c => c.city === data.city)
+    }
+
+    if (data.category != '') {
+      this.properties = this.properties.filter(c => c.category === data.category)
+    }
+
+    if (data.category != '') {
+      this.properties = this.properties.filter(c => c.category === data.category)
+    }
+    this.search = true;
+    console.log(this.properties)
+  }
+
+
+  translate() {
+    const inz = document.querySelector('#inz')
+    if(inz.classList.contains('move')){
+      inz.classList.remove('move')
+
+    } else{
+      inz.classList.add('move')
+
+    }
+
   }
 }

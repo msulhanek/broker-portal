@@ -27,14 +27,51 @@ export class PropertyListComponent implements OnInit {
     this.router.navigate(['/detail', property.stringId]);
   }
 
-  getAddress(stringId: string) {
-    const property: TaskData = this.taskData?.find(p => p.stringId === stringId);
-    return property.localisedTextFields?.find(n => n.stringId === 'text_6')?.value;
+  getPrice(stringId: string): string {
+    const property: TaskData = this.taskData.find(p => p.stringId === stringId);
+    return property.localisedNumberFields.find(n => n.stringId === 'text_0').value;
   }
 
-  getPrice(stringId: string) {
-    const property: TaskData = this.taskData?.find(p => p.stringId === stringId);
-    return property.localisedNumberFields?.find(n => n.stringId === 'text_0')?.value;
+  getTransactionType(stringId: string): string {
+    const property: TaskData = this.taskData.find(p => p.stringId === stringId);
+    return property.localisedEnumerationMapFields.find(n => n.stringId === 'enumeration_0').value;
+  }
+
+  getType(stringId: string): string {
+    const property: TaskData = this.taskData.find(p => p.stringId === stringId);
+    return property.localisedEnumerationMapFields.find(n => n.stringId === 'text_7').value;
+  }
+
+  getAddress(stringId: string): string {
+    const property: TaskData = this.taskData.find(p => p.stringId === stringId);
+    return property.localisedTextFields.find(n => n.stringId === 'text_6').value;
+  }
+
+  getObec(stringId: string): string {
+    const property: TaskData = this.taskData.find(p => p.stringId === stringId);
+    return property.localisedEnumerationMapFields.find(n => n.stringId === 'text_5').value;
+  }
+
+  getTransactionBadgeColor(stringId: string): string {
+    switch (this.getTransactionType(stringId)) {
+      case 'Predaj':
+        return 'bg-success';
+      case 'Kúpa':
+        return 'bg-danger';
+      default:
+        return 'bg-info';
+    }
+  }
+
+  getTypeBadgeColor(stringId: string): string {
+    switch (this.getType(stringId)) {
+      case 'Domy':
+        return 'house';
+      case 'Chaty':
+        return 'cabin';
+      default:
+        return 'flat';
+    }
   }
 
   private loadData() {

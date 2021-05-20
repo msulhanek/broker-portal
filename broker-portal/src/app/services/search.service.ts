@@ -45,12 +45,13 @@ export class SearchService {
 
   }
 
-  // search(data: any): Observable<SearchRequest>{
-  //   const search = {
-  //     group: "5f86b22df9ac3b272d6b4191",
-  //     query: "(visualId:*crt*)"
-  //   }
-  //
-  //   return this.httpClient.post<SearchRequest>()
-  // }
+  search(queryFilter: string): Observable<SearchRequest> {
+
+    const data = {
+      group: "5f86b22df9ac3b272d6b4191",
+      query: queryFilter
+    }
+
+    return this.httpClient.post<SearchRequest>('https://engine.interes.group/api/workflow/case/search?sort=stringId,desc&size=100&page=0', data);
+  }
 }
