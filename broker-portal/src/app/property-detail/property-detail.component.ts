@@ -48,11 +48,17 @@ export class PropertyDetailComponent implements OnInit, OnDestroy {
   }
 
   getPrice() {
-    return this.taskData?.localisedNumberFields.find(n => n.stringId === 'text_0')?.value;
+    return parseFloat(this.taskData?.localisedNumberFields.find(n => n.stringId === 'text_0')?.value) ;
+
+  }
+
+  getAveragePriceForM2()
+  {
+    return  Math.round(this.getPrice()/this.getFloorArea());
   }
 
   getFloorArea() {
-    return this.taskData?.localisedNumberFields.find(n => n.stringId === 'text_1')?.value;
+    return parseFloat(this.taskData?.localisedNumberFields.find(n => n.stringId === 'text_1')?.value);
   }
 
   getEmail() {
