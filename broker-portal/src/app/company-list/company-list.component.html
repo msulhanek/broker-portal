@@ -2,7 +2,7 @@
 </header>
 
 <div class="container">
-  <div class="heading py-4">
+  <div class="heading">
     <h1>Všetky spoločnosti</h1>
   </div>
   <div *ngIf="!taskData.length" style="height: 10rem;" class="text-center mt-4">
@@ -11,14 +11,16 @@
     </div>
   </div>
   <div class="row">
-    <div class="card col-lg-6 p-0" *ngFor="let task of taskData" (click)="redirect(task.stringId)" style="cursor: pointer;">
-      <div class="card-header">
-        {{getCompanyName(task.stringId)}}
-      </div>
-      <div class="card-body">
-        <h6>IČO: <span>{{getIco(task.stringId)}}</span></h6>
-        <h6>URL: <span><a>{{getUrl(task.stringId)}}</a></span></h6>
-        <h6>Konateľ spoločnosti: <span>{{getCompanyOwner(task.stringId)}}</span></h6>
+    <div class="col-lg-4"  *ngFor="let task of taskData" (click)="redirect(task.stringId)" style="cursor: pointer;">
+      <div class="card box mx-1 p-0">
+        <div class="card-header">
+          {{getCompanyName(task.stringId)}}
+        </div>
+        <div class="card-body">
+          <h6>IČO: <span>{{getIco(task.stringId)}}</span></h6>
+          <h6>URL: <span><a>{{getUrl(task.stringId)}}</a></span></h6>
+          <h6>Konateľ spoločnosti: <span>{{getCompanyOwner(task.stringId)}}</span></h6>
+        </div>
       </div>
     </div>
   </div>

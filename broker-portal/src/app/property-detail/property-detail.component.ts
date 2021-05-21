@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PropertyService} from "../services/property.service";
 import {TaskData} from "../interfaces/task-data.model";
@@ -22,6 +22,7 @@ export class PropertyDetailComponent implements OnInit, OnDestroy {
   counterTask: number = 0;
   sink = new SubSink();
   numbers: number[] = [];
+  form: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
@@ -37,6 +38,9 @@ export class PropertyDetailComponent implements OnInit, OnDestroy {
     }));
     this.loadData();
     this.loadSuggested();
+    this.form = this.formBuilder.group({
+      email: ''
+    });
   }
 
   ngOnDestroy(): void {

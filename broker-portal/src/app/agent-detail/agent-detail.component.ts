@@ -21,6 +21,7 @@ export class AgentDetailComponent implements OnInit {
               private route: Router) { }
 
   ngOnInit(): void {
+    window.scroll({top: 0});
     this.router.paramMap.subscribe(params => {
       this.id = params.get("id");
       this.name =params.get('name');
@@ -71,7 +72,6 @@ export class AgentDetailComponent implements OnInit {
             }
           }
         }
-        console.log(this.agent)
       }
     )
   }

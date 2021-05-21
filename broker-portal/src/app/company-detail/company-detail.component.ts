@@ -47,6 +47,10 @@ export class CompanyDetailComponent implements OnInit {
     return this.taskData?.localisedTextFields.find(n => n.stringId === 'text_10')?.value;
   }
 
+  getDescription(){
+    return this.taskData?.localisedTextFields.find(n => n.stringId === 'text_3')?.value;
+  }
+
   private loadData() {
     this.sink.add(this.propertyService.getData(this.taskId).subscribe(data => {
       if(data._embedded.dataGroups[0].fields._embedded.localisedEnumerationMapFields){

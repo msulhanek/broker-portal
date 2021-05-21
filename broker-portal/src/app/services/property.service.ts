@@ -54,13 +54,6 @@ export class PropertyService {
     return this.httpClient.get(`https://engine.interes.group/api/task/${stringId}/file/fileList_0/${fileName}`, {responseType: 'blob'});
   }
 
-
-  test(): Observable<any> {
-    let group = {group: '5f86b23cf9ac3b272d6c4e4d'};
-
-    return this.httpClient.post(' https://engine.interes.group/api/workflow/case/search?sort=stringId,desc&size=25&page=0', group);
-  }
-
   parseData(data): TaskData {
     const result: TaskData = {
       localisedEnumerationMapFields: [],
