@@ -238,7 +238,11 @@ export class MainPageComponent implements OnInit {
       const to = Number(data.priceTo)
       this.filters = this.filters.filter(c => c.price <= to)
     }
-
+  
+     if (data.transaction != '') {
+      const transaction = this.types.find(c => c.stringId === data.transaction).title
+      this.filters = this.filters.filter(c => c.transaction === transaction)
+    }
 
     if (data.county != '') {
       const county = this.counties.find(c => c.stringId === data.county).title
